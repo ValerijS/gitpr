@@ -1,0 +1,69 @@
+Now I will prove next theorem. I am using, good known in a literature, definition
+ of Basic Paxos protocol, which I have referred in report 3.
+     DEFINITION of Basic Paxos protocol.
+1a. A Proposer  creates a proposal identified with a number N. This number must be greater
+ than any previous proposal number used by this Proposer. Then, it sends
+ a Prepare message containing  this proposal to a Quorum of Acceptors.
+ The Proposer decides who is in the Quorum.
+ 
+1b. If the proposal's number N is higher than any previous proposal number received
+ from any Proposer by the Acceptor, then the Acceptor must return to Proposer a promise
+ to ignore all future proposals having a number less than N. If the Acceptor accepted
+ a proposal at some point in the past, it must include the previous
+ proposal number and previous value in its response to the Proposer.
+ Otherwise, the Acceptor can ignore the received proposal.
+
+2a.If a Proposer receives enough promises from a Quorum of Acceptors,
+ it needs to set a value to its proposal.
+ If any Acceptors had previously accepted any proposal,
+ then they'll have sent their values to the Proposer,
+ who now must set the value of its proposal 
+ to the    criated with the highest proposal number reported 
+ by the Acceptors. If none of the Acceptors had accepted
+ a proposal up to this point, then the Proposer may 
+ choose any value for its proposal.
+ The Proposer sends an Accept Request message to a Quorum
+ of Acceptors with the chosen value for its proposal.
+ 
+2.b If an Acceptor receives an Accept Request message for a proposal N,
+ it must accept it if and only if it has not already promised
+ to only consider proposals having an identifier greater than N. 
+ In this case, it should register the corresponding value v and
+ send an Accepted message to the Proposer and every Learner.
+ Else, it can ignore the Accept Request.
+ 
+ Let's introduce next condition:
+     "There exist such Acceptor, that in interval of time between:(t1)-it has  sent
+ to some Propser a promise (to  ignore all future proposals having a number less than N),
+ and (t2) it has received an Accept Request message for a proposal N;
+ this Acceptor has not received  any Prepar message with  proposal  an  identifier
+ greater than N".
+   This condition we will name:
+      "a weak  condition of  coordinating."(WC_of_C)
+    THEOREM. A  Basic Paxos protocol,will accept and register
+ an Accepted message if, and only if  "a weak  condition of  coordinating" (WC_of_C)
+ is performed.
+   PROOF.Let an Acceptor A has accepted the Accept Request message for proposal N.
+ From item 2b of definition of Base Paxos Protocol this means, that the Acceptor A
+ has not received any Prepare message with proposal number N1 > N, and as consequence
+ this means, that WC_of_C is performed.
+     From another side. Let WC_of_C is performed. Then, duering the time interval from
+ t1 up to t2 the Acceptor A has not received any Prepare message with proposal
+ number more than N, but according item 1b of DEFINITION, at time t1 value N
+ was the highest, among all proposal number, received by the Acceptor A, that is why
+ value N is the highest and at time t2, and according to item 2b of DEFINITION, the
+ Acceptor A must accept the Accept Request message for a proposal N, and it should
+ register the corresponding value V of inform object. And Base Paxos Protocol will
+ reach result.
+    The theorem is proved.
+	This theorem can have a lot of useful corollaries, which give sufficient conditions for
+ success of Base Paxes Protocol. First let's prove a statement  from report3.
+  COROLLARY 1.If every Proposer can repeat a creating a proposal only after an accepting
+ and registered some value,and, at least one, Proposer has created and sent to Quorum
+ a Prepare message, then result will be always reached.(Protocol will accept value).
+   PROOF.A number of Proposers is finite, and if everyone may create not more than
+one Prepare message, then there will be  the highest of all(not empty set)  proposal
+ number and  exist an Acceptor, which will receive the Acceptor Request with the highest
+ value  of an  identificator,  WC_of_C will  be performed.
+   COROLLARY is proved.
+ 
