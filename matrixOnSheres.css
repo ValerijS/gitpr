@@ -1,0 +1,82 @@
+body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    /*background: url(img/background_resized_compressed.jpg) no-repeat 50% 50%;*/
+    /*background-size: auto 100%;*/
+}
+
+#animatrix-viewport {
+    position: fixed;
+    left: 10%;
+    top: 75%;
+    -webkit-perspective: 600px;
+    -webkit-perspective-origin: 50% 50%;
+	
+	-moz-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+    perspective: 300px;
+    -webkit-transform: translateZ(-99999px);
+    -moz-transform: translateZ(-99999px);
+    -ms-transform: translateZ(-99999px);
+    -o-transform: translateZ(-99999px);
+    /*transform: rotateX(45deg);*/
+	transform: translateZ(-99999px);
+}
+
+#animatrix-world {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    -ms-perspective: inherit;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    /*-webkit-transform: rotateY(75deg);
+	-webkit-transform: rotateX(75deg);*/
+	 background: red/*rgba(0, 0, 0, 0.6)*/;
+	
+	transform-style: preserve-3d;
+}
+
+.animatrix-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    -webkit-animation: shere 120s infinite;
+	width: 180px;
+    height: 240px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    box-shadow: 0 0 12px rgba(231,254,237,0.6);
+    box-sizing: border-box;
+    
+	/*-webkit-transform: perspective(600) rotateX( 30deg );*/
+	}
+@-webkit-keyframes shere {
+    -webkit-transform: rotateZ(360deg);
+}	
+
+.animatrix-card img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* служенбынй класс для циферок на карточках
+.animatrix-card-id {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red;
+    font-size: 180px;
+    background-color: white;
+}*/
