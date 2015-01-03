@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset= "UTF-8">
+    <title>statisticRiak_model</title>
+     <script src="functRiak-LeoImitModel_31-12-14st.js"></script>
+</head>
+
+<body>
+   	
+     Enter  a count of all nodes(count_of_nodes, default value - 50): <input type="text" id="fname15" onchange = 'var c15 = document.getElementById("fname15").value;
+   document.getElementById("par15-1").innerHTML =  "You have entered  the count of all nodes  = "+ c15'>
+         <div id = 'par15-1'></div>
+    
+      Enter  a count_of_gateway_nodes- the count of nodes for entering (count_of_gateway_nodes <= count_of_nodes, default value - count_of_nodes): <input type="text" id="fname16" onchange = 'var c16 = document.getElementById("fname16").value;
+   document.getElementById("par16-1").innerHTML =  "You have entered  the count of all nodes  = "+ c16'>
+         <div id = 'par16-1'></div>
+     Enter n_value ("n_value" copies will be stored at different servers(nodes))(default value - 3) : <input type="text" id="fname7" onchange = 'var c7 = document.getElementById("fname7").value;
+  document.getElementById("par7-1").innerHTML =  "You have entered  the n_value  = "+ c7'>
+     <div id = 'par7-1'></div>
+     
+     Enter  w_walue(min number for write copies.)(default value - 2): <input type="text" id="fname8" onchange = 'var c8 = document.getElementById("fname8").value;
+   document.getElementById("par8-1").innerHTML =  "You have entered  the w_value  = "+ c8'>
+    <div id = 'par8-1'></div>
+     
+     Enter  a r_value(min number for read copies)(default value- 2): <input type="text" id="fname9" onchange = 'var c9 = document.getElementById("fname9").value;
+  document.getElementById("par9-1").innerHTML =  "You have entered  the r_value = "+ c9'>
+   <div id = 'par9-1'></div>
+    
+     Enter  an interval_for_repair(default value- 25): <input type="text" id="fname10" onchange = 'var c10 = document.getElementById("fname10").value;
+  document.getElementById("par10-1").innerHTML =  "You have entered  the interval_for_repair = "+ c10'>
+   <div id = 'par10-1'></div>
+     Fashion style varying distances between nodes(default value- 0): <input type="text" id="fname17" onchange = 'var c17 = document.getElementById("fname17").value;
+  document.getElementById("par17-1").innerHTML =  "You have entered  the interval_for_repair = "+ c17'>
+   <div id = 'par17-1'></div>
+      Not more than 0.3 for every probability.<br>
+     Enter  a probability of  a failure for a local, when it is performing with a unit of data (conditional unit)(default value- 0.01): <input type="text" id="fname11" onchange = 'var c11 = document.getElementById("fname11").value;
+   document.getElementById("par11-1").innerHTML =  "You have entered  a probability of  a failure for a local, when it is performing with a unit of data (conditional unit) = "+ c11'>
+    <div id = 'par11-1'></div>
+   
+     Enter  a probability of  a failure for a send_action, when it is performing with a unit of data (conditional unit)(default value- 0.01): <input type="text" id="fname3" onchange = 'var c3 = document.getElementById("fname3").value;
+   document.getElementById("par3-1").innerHTML =  "You have entered  a probability of  a failure for a send_action, when it is performing with a unit of data (conditional unit) = "+ c3'>
+    <div id = 'par3-1'></div>
+        
+    Enter  a probability of  a failure for a write_action, when it is performing with a unit of data (conditional unit)(default value- 0.01): <input type="text" id="fname1" onchange = 'var c1 = document.getElementById("fname1").value;
+  document.getElementById("par1-1").innerHTML =  "You have entered  a probability of  a failure for a write_action, when it is performing with a unit of data (conditional unit) = "+ c1' >
+    <div id = 'par1-1'> </div>
+    
+     Enter  a probability of  a failure for a read_action, when it is performing with a unit of data (conditional unit)(default value- 0.01): <input type="text" id="fname4" onchange = 'var c4 = document.getElementById("fname4").value;
+  document.getElementById("par4-1").innerHTML =  "You have entered  a probability of  a failure for a read_action, when it is performing with a unit of data (conditional unit) = "+ c4'>
+    <div id = 'par4-1'></div>
+	
+     level_of_intensivity_of_requests(default value- 20): <input type="text" id="fname12" onchange = 'var c12 = document.getElementById("fname12").value;
+   document.getElementById("par12-1").innerHTML =  "level_of_intensivity_of_requests = "+ c12'>
+   <div id = 'par12-1'></div>
+     Enter  a count of iterations for the algorithm(default value- 100): <input type="text" id="fname5" onchange = 'var c5 = document.getElementById("fname5").value;
+   document.getElementById("par5-1").innerHTML =  "You have entered  the count of iterations for algorithmcount  = "+ c5'>
+   <div id = 'par5-1'></div>
+    capacity_of_statistical_sampling(default value- 1): <input type="text" id="fname13" onchange = 'var c13 = document.getElementById("fname13").value;
+   document.getElementById("par13-1").innerHTML =  "capacity_of_statistical_sampling = "+ c13'>
+   <div id = 'par13-1'></div>
+    
+    <div id = 'par14'></div>
+	To get statistic for Riak and Leo: [coefficient of using resources, level of availability (%), level of consistence (%),  total_count_of_data (conditional unit), total_used_resource (conditional unit), count_of_read_lags, count_of_read_failures, count_of_write_failures, max_lag_of_performance_of_read_request] - enter  "start" : <input type="text" id="fname14" onchange = 'var j, f_st, stat1, statistic; j = 0;
+capacity_of_statistical_sampling = document.getElementById("fname13").value ||1 
+; //(document.getElementById("par13").innerHTML == true) ? document.getElementById("par13").innerHTML:10;
+statistic = [0,0,0,0,0,0,0,0,0,0,0,0];
+while (j < capacity_of_statistical_sampling) { 
+	j = j + 1;
+	f_st = riakModel();
+	for (i = 0; i < 12; i++) {
+		statistic[i] = statistic[i] + (f_st[i] / capacity_of_statistical_sampling)
+		}
+	}
+	
+	
+	document.getElementById("par16").innerHTML = document.getElementById("par16").innerHTML +  "<br><hr> Name of Parameter________________________Riak" + [ 
+		"<br> level of availability (%) - _______________" + statistic[1].toFixed(2), 
+		"<br> level of consistence (%) - ________________" + statistic[2].toFixed(2),
+		"<br> count_of_read_lags(outdated information) - ___" + statistic[6].toFixed(2), 
+		"<br> max_lag_of_performance_of_read_request - __" + statistic[9].toFixed(2), 
+		"<br> total_count_of_data(conditional unit) - ____" + statistic[3].toFixed(2), 
+	    "<br> total_used_resource (conditional unit) -____ " + statistic[4].toFixed(2),
+		"<br>coefficient of using resource -  ______________" + statistic[0].toFixed(3),
+		"<br> total_count_of_failures - ________________" + statistic[5].toFixed(2),
+		"<br> count_of_read_failures (decreasing of the availability) - " + statistic[7].toFixed(2),
+	    "<br> count_of_write_failures (decreasing of the availability) - " + statistic[8].toFixed(2),
+		"<br> count_of_read//write_actions - __________" + statistic[10].toFixed(2)]'>
+	     and look:
+		 <br>
+		 <hr>
+	<div id = 'par16'></div>
+    <hr>
+   
+</body>
+
+</html>
