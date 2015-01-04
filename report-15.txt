@@ -1,0 +1,81 @@
+              Report-15. The overview of the article: "Brewer’s Conjecture and
+ the Feasibility ofConsistent, Available, Partition-Tolerant Web Services",
+ by Seth Gilbert and Nancy Lynch.
+
+            Abstract
+    When designing distributed web services, there are three
+properties that are commonly desired: consistency, availability,
+and partition tolerance. It is impossible to achieve
+all three. In this note, we prove this conjecture in the asynchronous
+network model, and then discuss solutions to this
+dilemma in the partially synchronous model.
+            1 Formal Model
+    In this section, there was formally defined, what is meant by the terms consistent,
+ available, and  partition tolerant.
+            1.1 Consistency(atomicity) for distributed data systems
+Most web services today attempt to provide strongly consistent data.
+There has been significant research designing ACID2 databases, and most
+of the new frameworks for building distributed web services depend on these
+databases. Interactions with web services are expected to behave in a transactional
+manner:
+1) operations commit or fail in their entirety (atomic),
+2) committed transactions are visible to all future transactions (consistent),
+3) uncommitted transactions are isolated from each other (isolated),
+4) once a transaction is committed it is permanent (durable).
+    Next definition of consistency for distributed data systems follows from these
+ four principles.  The consistency guarantee, there must exist a total order on all
+ operations such that each operation looks as if it were completed at a single instant.
+ 
+    Definition 1.  Consistency condition:  any read operation(RO) that begins after
+ a write operation(WO) completes (tb(RO) > tf(WO))   must return that value, or the result of a later
+ write operation(LWO): v(RO) = v(LWO).
+
+    This is the consistency guarantee that generally provides the easiest model
+for users to understand, and is most convenient for those attempting to design
+ a client application that uses the distributed service. 
+            1.2  Available Data Objects
+    For a distributed system to be continuously available, every request received
+by a non-failing node in the system must result in a response.4 That is, any
+algorithm used by the service must eventually terminate. In some ways
+this is a weak definition of availability: it puts no bound on how long the
+algorithm may run before terminating, and therefore allows unbounded computation.
+On the other hand, when qualified by the need for partition tolerance,
+this can be seen as a strong definition of availability: even when severe
+network failures occur, every request must terminate.
+
+    Definition 2. Availability condition: for every Read or Write Objeck(O)
+ there it is true: "If Object(O) has beginning(tb(O) > 0), then it has ending (tf(O) >= tb(O))".
+
+
+            2.3 Partition Tolerance
+    The above definitions of availability and atomicity are qualified by the need
+to tolerate partitions. In order to model partition tolerance, the network
+will be allowed to lose arbitrarily many messages sent from one node to
+another. When a network is partitioned, all messages sent from nodes in
+one component of the partition to nodes in another component are lost.
+(And any pattern of message loss can be modeled as a temporary partition
+separating the communicating nodes at the exact instant the message is lost.)                 
+The atomicity requirement (2.1) therefore implies that every response will
+be atomic, even though arbitrary messages sent as part of the algorithm
+might not be delivered. The availability requirement (2.2) implies that
+every node receiving a request from a client must respond, even though
+arbitrary messages that are sent may be lost.  No set of failures
+less than total network failure is allowed to cause the system to respond
+incorrectly.
+
+			3 Impossibility Result
+	There was proved the next famous Theorem: 
+Theorem  It is impossible in the asynchronous network model to implement
+a read/write data object that guarantees the following properties:
+• Availability
+• Atomic consistency
+in all fair executions (including those in which messages are lost).
+	In proving this conjecture, we will use the asynchronous network model.
+ In the asynchronous model, there is no clock, and nodes must make decisions
+ based only on the messages received and local computation.
+
+   Thera are also some results.Those say: any two positions of three:
+		1) consistency;
+		2) availability;
+		3) partition tolerance;
+are possible together in the same time.
